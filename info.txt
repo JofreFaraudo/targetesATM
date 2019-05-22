@@ -1,0 +1,5 @@
+Curtes = 1/2Llargues
+Llargues = 0
+Curtes = 1
+
+Fer que afeixegi zeros a l'array principal per a que sigui divisible entre posl (11)
