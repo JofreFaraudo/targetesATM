@@ -1,4 +1,3 @@
-#import numpy as np
 import math
 
 n = []
@@ -12,15 +11,23 @@ with open("5.wav","rb") as f:
 		byte = f.read(2)
 		n.append(int.from_bytes(byte, "little", signed=True))
 n = n[:-1]
-#print(n)
+
+# Find the maxium(s) value(s)
 while pos < len(n):
+	# Gettin the 11 numbers from pos
 	a = n[pos:pos+posl]
-	print(a)
+
+	# Make array length divisible by posl
+	while len(a)%posl != 0:
+		a.append(0)
+
+	# Get the middle value
 	mid = a[math.floor(posl/2)]
-	print(mid)
-	print(max(a))
+
+	# Get the max value & check if are equal
 	if max(a) == mid:
-		print("yes")
 		maximums.append(mid)
+
+	# Changing to the next position
 	pos += 1
 print(maximums)
