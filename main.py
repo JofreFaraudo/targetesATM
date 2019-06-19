@@ -4,6 +4,7 @@ n = []
 posl = 11
 pos = 0
 peaks = {}
+llindar = 1500
 midindex = math.floor(posl/2)
 
 with open("5.wav","rb") as f:
@@ -26,9 +27,9 @@ while pos < len(n)-midindex:
 	mid = a[midindex]
 
 	# Get the max or min value & check if are equal
-	if max(a) == mid or min(a) == mid:
+	if (max(a) == mid or min(a) == mid) and abs(mid) > llindar:
 		peaks[midindex+pos] = mid
+		print(mid)
 
 	# Changing to the next position
 	pos += 1
-print(peaks)
