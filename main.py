@@ -69,4 +69,5 @@ while i < len(binary)-1:
 		binaryf.append(binary[i])
 		b = True
 	i += 1
-print(binaryf)
+#print(binaryf)
+print(hex(int(str(binaryf),2)))
