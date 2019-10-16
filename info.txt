@@ -3,3 +3,6 @@ Llargues = 0
 Curtes = 1
 
 Fer que afeixegi zeros a l'array principal per a que sigui divisible entre posl (11)
+
+Arreglar llindar:
+Agafar un percentatge especific entre la diferència del pic màxim de soroll amb el general. Depenent de cada fitxer, el llindar varia

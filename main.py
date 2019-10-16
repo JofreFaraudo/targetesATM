@@ -1,13 +1,15 @@
 import math
+import os
 
-filename = ["5.wav","2019-05-14 1137.wav"]
-filenameindex = 1
+filenames = os.listdir("swipes")
+filenameindex = int(input(str(filenames)+"\nChoose file (Index: 1 - "+str(len(filenames))+"): "))-1
+filename = "swipes/"+filenames[filenameindex]
 
 n = []
 posl = 11
 pos = 0
 peaks = []
-llindar = 1500
+llindar = 1300 # antic llindar: 1500
 midindex = math.floor(posl/2)
 differences = []
 llpos = 0
@@ -18,6 +20,7 @@ hexf = ""
 bitsUsed = 200
 bf = [True]*8
 bf[1] = False # Equals to 10111111
+llindarTempsEntrePics = 10
 
 def mitjana(l):
 	t = 0;
@@ -38,7 +41,7 @@ def xor(byte1,byte2):
 		j += 1
 	return result
 
-with open(filename[filenameindex],"rb") as f:
+with open(filename,"rb") as f:
 	byte = f.read(44)
 	while byte:
 		byte = f.read(2)
@@ -54,10 +57,10 @@ while pos < len(n)-midindex:
 	while len(a)%posl != 0:
 		a.append(0)
 
-	# Get the middle value
+	# Gets the middle value
 	mid = a[midindex]
 
-	# Get the max or min value & check if are equal
+	# Gets the max or min value & check if are equal
 	if (max(a) == mid or min(a) == mid) and abs(mid) > llindar:
 		peaks.append(midindex+pos)
 
@@ -66,14 +69,15 @@ while pos < len(n)-midindex:
 
 i = 0
 while i < len(peaks)-1:
-	differences.append(abs(peaks[i]-peaks[i+1]))
+	dif = abs(peaks[i]-peaks[i+1])
+	if dif > llindarTempsEntrePics:
+		differences.append(dif)
 	i += 1
-differences = differences[15:-5]
-
+print(differences)
 while len(differences) - llpos != llposl:
 	a = differences[llpos:llpos+llposl]
 	binary.append(a[0] < mitjana(a))
-	#print(mitjana(a))
+	print(mitjana(a))
 	llpos += 1
 i = 0
 while i < llposl-1:
@@ -90,9 +94,13 @@ while i < len(binary)-1:
 		b = True
 	i += 1
 
-# Take out bits that we don't need
+# Takes out bits we don't need
+print(binaryf)
 spos = binaryf.index("1011")
 binaryf = binaryf[spos:spos+bitsUsed]
+
+if len(binaryf) < bitsUsed:
+	print("File too short.")
 
 # Conversation from bin to hex
 i = 0
@@ -105,10 +113,15 @@ while i < len(binaryf):
 	else:
 		accum = [bit == "1" for bit in cbyte]
 	i += 8
+	print(accum)
 
+print(accum)
 if accum == bf:
 	print(hexf)
+	print(accum)
 else:
 	print("An error has occurred while reading the file:")
 	print(hexf)
 	print(accum)
+	print(binaryf)
+	print(spos)

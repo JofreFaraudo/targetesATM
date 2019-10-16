@@ -1,12 +1,18 @@
 import math
+import os
+
+filenames = os.listdir("swipes")
+filenameindex = int(input())-1
+filename = "swipes/"+filenames[filenameindex]
 
 n = []
 posl = 11
 pos = 0
 peaks = {}
 midindex = math.floor(posl/2)
+llindar = 700
 
-with open("2019-05-14 1137.wav","rb") as f:
+with open(filename,"rb") as f:
 	byte = f.read(44)
 	while byte:
 		byte = f.read(2)
@@ -26,7 +32,7 @@ while pos < len(n)-midindex:
 	mid = a[midindex]
 
 	# Get the max or min value & check if are equal
-	if max(a) == mid or min(a) == mid:
+	if (max(a) == mid or min(a) == mid) and abs(mid) > llindar:
 		peaks[midindex+pos] = mid
 
 	# Changing to the next position
